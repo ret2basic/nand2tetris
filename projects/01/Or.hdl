@@ -14,8 +14,8 @@ CHIP Or {
     OUT out;
 
     PARTS:
-    Not (in=a, out=temp1);
-    Not (in=b, out=temp2);
-    And (a=temp1, b=temp2, out=temp3);
-    Not (in=temp3, out=out);
+    Not (in=a, out=nota);
+    Not (in=b, out=notb);
+    And (a=nota, b=notb, out=and);
+    Not (in=and, out=out);
 }
