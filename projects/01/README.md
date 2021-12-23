@@ -91,7 +91,7 @@ Similarly, we use sel[0] to "mux" out "ab", "cd", "ef", and "gh", and then use s
 There are 4 cases:
 
 | sel | a | b | c | d |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | 00 | in | 0 | 0 | 0 |
 | 01 | 0 | in | 0 | 0 |
 | 10 | 0 | 0 | in | 0 |
