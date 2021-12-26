@@ -42,5 +42,29 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+    // if (zx == 1) set x = 0
+    Mux16 (a=x, b=false, sel=zx, out=xEqualsZero);
+    // if (nx == 1) set x = !x
+    Not16 (in=xEqualsZero, out=notx);
+    Mux16 (a=xEqualsZero, b=notx, sel=nx, out=xProcessed);
+    // if (zy == 1) set y = 0
+    Mux16 (a=y, b=false, sel=zy, out=yEqualsZero);
+    // if (ny == 1) set y = !y
+    Not16 (in=yEqualsZero, out=noty);
+    Mux16 (a=yEqualsZero, b=noty, sel=ny, out=yProcessed);
+
+    Add16 (a=xProcessed, b=yProcessed, out=xPlusy); 
+    And16 (a=xProcessed, b=yProcessed, out=xAndy);
+    // if (f == 1) set out = x + y ; if (f == 0) set out = x & y
+    Mux16 (a=xAndy, b=xPlusy, sel=f, out=result);
+
+    Not16 (in=result, out=negatedResult);
+    // if (no == 1) set out = !out ; if (out < 0) set ng = 1
+    Mux16 (a=result, b=negatedResult, sel=no, out=out, out[15]=ng, out[8..15]=firstHalf, out[0..7]=secondHalf);
+
+    Or8Way (in=firstHalf, out=firstOr);
+    Or8Way (in=secondHalf, out=secondOr);
+    Or (a=firstOr, b=secondOr, out=nonZeroBitExists);
+    // if (out == 0) set zr = 1
+    Not (in=nonZeroBitExists, out=zr);
 }
