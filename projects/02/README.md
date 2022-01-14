@@ -1,6 +1,6 @@
 # Project 2
 
-In this project, we are going to build the Hack ALU based on the logical gates from Project 1. 
+In this project, we are going to implement **ALU** based on the logical gates from Project 1. 
 
 ## 1. HalfAdder
 
