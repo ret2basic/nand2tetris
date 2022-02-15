@@ -13,7 +13,7 @@ In this project, we are going to implement **Multiplication** and **I/O handling
   - You may choose to blacken and clear the screen in any spatial pattern, as long as pressing a key continuously for long enough will result in a fully blackened screen, and not pressing any key for long enough will result in a cleared screen.
   - This program has a test script (`Fill.tst`) but no compare file--it should be checked by visibly inspecting the simulated screen in the CPU emulator.
 
-## Mult
+## 1. Mult
 
 Recall that multiplication is the same as adding a number repeatly. For example, 3 * 5 means 3 + 3 + 3 + 3 + 3 or 5 + 5 + 5.
 
@@ -36,6 +36,6 @@ return 0;
 
 The assembly code is self-explanatory.
 
-## Fill
+## 2. Fill
 
 The assembly code is self-explanatory.

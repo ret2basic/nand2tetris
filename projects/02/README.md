@@ -34,7 +34,7 @@ Here we use HalfAdder twice. Informally, we do `HalfAdder(HalfAdder(a, b), c)`. 
 
 ## 3. Add16
 
-First we use `HalfAdder(a[0], b[0])` for initialization since we only have two bits at this moment, and then loop `FullAdder(a[i], b[i], carry_bit_from_last_round)`.
+First we use `HalfAdder(a[0], b[0])` since we don't have any carry bit at this moment, and then loop `FullAdder(a[i], b[i], carry_bit_from_last_round)`.
 
 ## 4. Inc16
 
