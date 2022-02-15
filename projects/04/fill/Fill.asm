@@ -11,18 +11,6 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-// Pseducode:
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 @i // select variable "i"
 M=1 // i = 1
 @8192 // A = 8192
@@ -33,34 +21,34 @@ M=D	// n = 8192
 M=0 // color = 0
 
 (LOOP1)
-	@SCREEN
-	D=A
-	@addr
-	M=D			// addr = 16384
-	@i
-	M=1			//i=1
-	@color
+	@SCREEN // A = SCREEN
+	D=A // D = SCREEN
+	@addr // select variable "addr"
+	M=D // addr = 16384
+	@i // select variable "i"
+	M=1	// i = 1
+	@color // select variable "color"
 	M=0
 
-	@KBD
-	D=M 		//获取键盘
-	@BLACKEN		//如果键盘有输入，则将颜色变为黑色
-	D;JGT		
+	@KBD // A = KBD
+	D=M  // D = KBD
+	@BLACKEN // select label "BLACKEN"
+	D;JGT // If D > 0, jump to "BLACKEN"
 	
-	(LOOP2)		//循环填充屏幕
+	(LOOP2)
 		@i
 		D=M
 		@n
 		D=D-M	
-		@LOOP1	//i>n goto LOOP1
+		@LOOP1
 		D;JGT
 		
 		@color
-		D=M		//获得颜色
+		D=M
 		
 		@addr
 		A=M
-		M=D 	//RAM[addr]=D
+		M=D
 		
 		@i
 		M=M+1
@@ -70,7 +58,7 @@ M=0 // color = 0
 		0;JMP
 	
 (BLACKEN)
-	@color
-	M=-1
-	@LOOP2
+	@color // select variable "color"
+	M=-1 // color = -1
+	@LOOP2 // select label "LOOP2"
 	0;JMP

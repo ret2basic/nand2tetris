@@ -38,10 +38,4 @@ The assembly code is self-explanatory.
 
 ## Fill
 
-Pseudocode:
-
-```c
-
-```
-
 The assembly code is self-explanatory.
