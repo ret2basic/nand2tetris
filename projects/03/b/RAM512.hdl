@@ -15,10 +15,11 @@ CHIP RAM512 {
     OUT out[16];
 
     PARTS:
-    // Set the "load" value for each address
+    // address[6..8] is used for addressing 
+    // address[0..5] is used for addressing 
     DMux8Way (in=load, sel=address[6..8], a=load1, b=load2, c=load3, d=load4, e=load5, f=load6, g=load7, h=load8);
     
-    // Handling each RAM64
+    // Only one RAM64 loads, others maintain state
     RAM64 (in=in, load=load1, address=address[0..5], out=ram1);
 	RAM64 (in=in, load=load2, address=address[0..5], out=ram2);
 	RAM64 (in=in, load=load3, address=address[0..5], out=ram3);

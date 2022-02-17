@@ -15,10 +15,10 @@ CHIP RAM8 {
     OUT out[16];
 
     PARTS:
-    // Set the "load" value for each address
+    // Let RAM[address] = load and set other registers to 0
     DMux8Way (in=load, sel=address, a=load1, b=load2, c=load3, d=load4, e=load5, f=load6, g=load7, h=load8);
     
-    // Handling each register
+    // One register loads, the others maintain state
     Register (in=in, load=load1, out=register1);
 	Register (in=in, load=load2, out=register2);
 	Register (in=in, load=load3, out=register3);
