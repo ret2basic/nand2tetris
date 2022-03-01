@@ -27,5 +27,16 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // If the address belongs to RAM
+    DMux(in=load, sel=address[14], a=ram, b=device);
+    RAM16K(in=in, load=ram, address=address[0..13], out=output1);
+
+    // If the address belongs to device (Screen or Keyboard)
+    DMux(in=device, sel=address[13], a=screen, b=keyboard);
+    Screen(in=in, load=screen, address=address[0..12], out=screenOutput);
+    Keyboard(out=keyboardOutput);
+    
+    // Merge results
+    Mux16(a=screenOutput, b=keyboardOutput, sel=address[13], out=output2);
+    Mux16(a=output1, b=output2, sel=address[14], out=out);
 }

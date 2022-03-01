@@ -1,6 +1,6 @@
 # Project 1
 
-In this project, we are going to implement all the logical gates from scratch, starting with a built-in **Nand** gate.
+In this project, we are going to implement many commonly-used chips from scratch, starting with the built-in **Nand** chip.
 
 ## 1. Not
 
