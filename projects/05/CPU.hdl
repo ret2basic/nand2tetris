@@ -39,5 +39,30 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    Mux16(a=instruction, b=ALUout, sel=instruction[15], out=Ain);
+    Not(in=instruction[15], out=a);
+    Or(a=a, b=instruction[5], out=loadA);
+    ARegister(in=Ain, load=loadA, out=Aout, out[0..14]=addressM);
+
+    And(a=instruction[15], b=instruction[4], out=loadD);
+    DRegister(in=ALUout, load=loadD, out=Dout);
+
+    Mux16(a=Aout, b=inM, sel=instruction[12], out=ALUin);
+    ALU(x=Dout, y=ALUin, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6],
+        out=ALUout, out=outM, zr=zr, ng=ng);
+    And(a=instruction[3], b=instruction[15], out=writeM);
+
+    And(a=instruction[15], b=instruction[2], out=j1);
+    And(a=instruction[15], b=instruction[1], out=j2);
+    And(a=instruction[15], b=instruction[0], out=j3);
+
+    Not(in=zr, out=notzr);
+    Not(in=ng, out=notng);
+    And(a=notzr, b=notng, out=pos);
+
+    And(a=j1, b=ng, out=l1);
+    And(a=j2, b=zr, out=l2);
+    And(a=j3, b=pos, out=l3);
+    Or(a=l1, b=l2, out=o1);
+    Or(a=o1, b=l3, out=load);
 }
