@@ -2,6 +2,12 @@
 
 In this project, we are going to implement many commonly-used chips from scratch, starting with the built-in **Nand** chip.
 
+**Note:** In HDL, bits are numbered from right to left, starting with 0. For example, we have sel = 110, then:
+
+- `sel[0] = 0`
+- `sel[1] = 1`
+- `sel[2] = 1`
+
 ## 1. Not
 
 Recall that `Not a = a Nand a`. This was shown when we were proving "any Boolean function can be represented by a Boolean expression containing only Nand operators".

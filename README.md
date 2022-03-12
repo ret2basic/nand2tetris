@@ -31,36 +31,21 @@ Based on these three observations, And gate, Or gate, and Not gate can be reduce
 
 In Project 1, we are going to implement:
 
-- Not
-- And
-- Or
-- Xor
-- Mux
-- DMux
-- Not16
-- And16
-- Or16
-- Mux16
-- Or8Way
-- Mux4Way16
-- Mux8Way16
-- DMux4Way
-- DMux8Way
-
-The interesting part of this project is the implementation of **multiplexer (Mux)** and **demultiplexer (DMux)**:
-
-- **Multiplexer (Mux)**
-  - This chip takes 2 data inputs `a` and `b` as well as a "selector" input `sel` and produces 1 output `out`. If `sel == 0`, then Mux sets `out = a`; otherwise, Mux sets `out = b`.
-  - In other words, Mux computes "many to one".
-- **Demultiplexer (DMux)**
-  - This chip takes 1 data input `in` as well as a "selector" input `sel`. It produces 2 outputs `a` and `b`. If `sel == 0`, then DMux sets `a = in and b = 0`; otherwise, DMux sets `a = 0 and b = in`.
-  - In other words, DMux computes "one to many".
-
-**Note:** In HDL, bits are numbered from right to left, starting with 0. For example, we have sel = 110, then:
-
-- `sel[0] = 0`
-- `sel[1] = 1`
-- `sel[2] = 1`
+- **Not:** Not gate 1-bit version
+- **And:** And gate 1-bit version
+- **Or:** Or gate 1-bit version
+- **Xor:** Xor gate 1-bit version
+- **Mux:** Multiplexer 1-bit version
+- **DMux:** Demultiplexer 1-bit version
+- **Not16:** Not gate 16-bit version
+- **And16:** And gate 16-bit version
+- **Or16:** Or gate 16-bit version
+- **Mux16:** Multiplexer 16-bit version
+- **Or8Way:**
+- **Mux4Way16:**
+- **Mux8Way16:**
+- **DMux4Way:**
+- **DMux8Way:**
 
 # Chapter 2: Boolean Arithmetic
 
@@ -76,13 +61,11 @@ In order to represent negative numbers, we use **2's complement**. Suppose the w
 
 In Project 2, we are going to implement:
 
-- HalfAdder
-- FullAdder
-- Add16
-- Inc16
-- ALU
-
-The interesting part of this project is the implementation of **ALU**.
+- **HalfAdder:**
+- **FullAdder:**
+- **Add16:** Addition 16-bit version
+- **Inc16:** Increment 16-bit version
+- **ALU:** Arithmetic Logical Unit
 
 # Chapter 3: Memory
 
@@ -109,25 +92,14 @@ Note that the "counter" here is just the program counter.
 
 In Project 3, we are going to implement:
 
-- Bit
-- Register
-- RAM8
-- RAM64
-- RAM512
-- RAM4K
-- RAM16K
-- PC
-
-The interesting part of this project is the implementation of **PC**.
-
-**Note:** in HDL, bits are numbered from right to left, starting with 0. For example, we have address = abcdef, then:
-
-- `address[0] = f`
-- `address[1] = e`
-- `address[2] = d`
-- `address[3] = c`
-- `address[4] = b`
-- `address[5] = a`
+- **Bit:**
+- **Register:**
+- **RAM8:** RAM 8-bit version
+- **RAM64:** RAM 64-bit version
+- **RAM512:** RAM 512-bit version
+- **RAM4K:** RAM 4K-bit version
+- **RAM16K:** RAM 16K-bit version
+- **PC:** Program Counter
 
 # Chapter 4: Machine Language
 
@@ -139,10 +111,8 @@ The interesting part of this project is the implementation of **PC**.
 
 In Project 4, we are going to implement:
 
-- Mult
-- Fill
-
-The interesting part of this project is the implementation of **Fill**.
+- **Mult:**
+- **Fill:**
 
 # Chapter 5: Computer Architecture
 
@@ -168,23 +138,31 @@ The **von Neumann machine** is a practical model that informs the construction o
 
 In Project 5, we are going to implement:
 
-- Memory
-- CPU
-- Computer
-
-The interesting part of this project is the implementation of **CPU**.
+- **Memory:**
+- **CPU:**
+- **Computer:**
 
 # Chapter 6: Assembler
 
 ## Course
 
+Suppose we are dealing with the assembly code `load R3, 7`.The **assembler** parses each assembly instruction into its underlying fields, for example, `load`, `R3`, and, `7`, translates each field into its equivalent binary code, and finally **assembles** the generated bits into binary instruction that can be executed by the hardware. Pictorially:
 
+```
+           Assembler
+Assembly -------------> Binary
+```
+
+In this chapter we will build an assembler in **Python**.
 
 ## Project
 
 In Project 6, we are going to implement:
 
-
+- `parser.py`: parsing the input into instructions and instructions into fields.
+- `code.py`: translating the fields (symbolic mnemonics) into binary codes.
+- `hack_assembler.py`: drives the entire translation process.
+- `symbol_table.py`: resolving symbols (labels in assembly language) into actual addresses.
 
 # Chapter 7: Virtual Machine I: Processing
 
