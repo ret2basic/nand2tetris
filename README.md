@@ -17,6 +17,16 @@
 11. [Compiler II: Code Generation](https://github.com/ret2basic/From-Nand-to-Tetris/tree/main/projects/11)
 12. [Opearting System](https://github.com/ret2basic/From-Nand-to-Tetris/tree/main/projects/12)
 
+# Part I: Hardware
+
+Part I covers project 1 to 6. In this part, we are going to implement the hardware architecture for our Hack computer. In particular, we are going to build:
+
+1. **Logical gates:** project 1
+2. **ALU and memory devices:** project 2 and 3
+3. **Hack machine language:** project 4
+4. **CPU and RAM:** project 5
+5. **Hack assembler:** project 6
+
 # Chapter 1: Boolean Logic
 
 ## Course
@@ -115,17 +125,17 @@ In Project 3, we are going to implement:
 
 ### A-instruction (@xxx)
 
-The A-instruction sets the `A` register to some 15-bit value. In binary, an A-instruction takes the form `0vvvvvvvvvvvvvvv`, where 0 = opcode and vvvvvvvvvvvvvvv = 15-bit value of xxx.
+The A-instruction sets the `A` register to some 15-bit value:
+
+- Symbolic: `@xxx,  where `xxx` is a decimal value ranging from 0 to 32767, or a symbol bound to such a decimal value.
+- Binary: `0vvvvvvvvvvvvvvv`, where `0` stands for A-instruction and `vvvvvvvvvvvvvvv` is the 15-bit value of `xxx`.
 
 ### C-instruction (dest = comp;jump)
 
 The C-instruction answers three questions: what to compute (an ALU operation, denoted `comp`), where to store the computed value (`dest`), and what to do next (`jump`):
 
-- **comp:** 
-- **dest:** 
-- **jump:** 
-
-In binary, a C-instruction takes the form `111accccccddjjj`, where 
+- Symbolic: `dest=comp;jump`,  where `comp` is mandatory. If `dest` is empty, the `=` is omitted; if `jump` is empty, the `;` is omitted.
+- Binary: `111accccccdddjjj`, where `111` stands for C-instruction, `acccccc` refers to `comp`, `ddd` refers to `dest`, and `jjj` refers to `jump`. 
 
 ### Symbols
 
@@ -197,6 +207,39 @@ In Project 6, we are going to implement:
 - `code.py`: translating the fields (symbolic mnemonics) into binary codes.
 - `hack_assembler.py`: drives the entire translation process.
 - `symbol_table.py`: resolving symbols (labels in assembly language) into actual addresses.
+
+# Part II: Software
+
+Part II covers project 7 to 12. In this part, we are going to implement **Jack**, a *simple*, *Java-like*, *object-based* programming language. As with programming languages like Java and C#, the Jack compiler will be *two-tiered*:
+
+1. The **Hack compiler** will generate interim **bytecode**, designed to run on an abstraction **virtual machine (VM)**.
+2. The bytecode will then be compiled further by a separate **VM translator** into the **Hack machine language**.
+
+Pictorially:
+
+```
+             Compiler            VM            Assembler
+Source Code ---------> Bytecode ----> Assembly --------> Binary
+```
+
+The languaeg that we are going to implement, Jack, has the following syntax:
+
+```
+// First example in Programming 101
+class Main {
+  function void main() {
+    do Output.printString("Hello World");
+    return;
+  }
+}
+```
+
+In Part II, we are going to build:
+
+1. **VM translator:** project 7-8
+2. **BreakOut game written in Jack:** project 9
+3. **Jack compiler:** project 10-11
+4. **Operating system:** project 12
 
 # Chapter 7: Virtual Machine I: Processing
 
