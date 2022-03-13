@@ -5,7 +5,6 @@ class Code():
     def dest(self, mnemonic):
         """Maps `dest` to `ddd`"""
         lookup_table = {
-            'null' : '000',
             'M' : '001',
             'D' : '010',
             'DM' : '011',
@@ -15,7 +14,10 @@ class Code():
             'ADM' : '111',
         }
 
-        return lookup_table[mnemonic]
+        if mnemonic in lookup_table:
+            return lookup_table[mnemonic]
+        else:
+            return '000'
 
     def comp(self, mnemonic):
         """Maps `comp` to `a` and `cccccc`"""
@@ -55,7 +57,6 @@ class Code():
     def jump(self, mnemonic):
         """Maps `jump` to `jjj`"""
         lookup_table = {
-            'null' : '000',
             'JGT' : '001',
             'JEQ' : '010',
             'JGE' : '011',
@@ -65,4 +66,7 @@ class Code():
             'JMP' : '111',
         }
 
-        return lookup_table[mnemonic]
+        if mnemonic in lookup_table:
+            return lookup_table[mnemonic]
+        else:
+            return '000'

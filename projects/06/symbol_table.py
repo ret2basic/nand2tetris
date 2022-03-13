@@ -13,13 +13,13 @@ class SymbolTable():
         """Does the symbol table contain the given `symbol`?"""
         return symbol in self.symbol_table
     
-    def addEntry(self, symbol, address):
+    def add_entry(self, symbol, address):
         """Adds `<symbol,address> to the table."""
         if symbol not in self.symbol_table:
             self.symbol_table[symbol] = address
         else:
             pass
             
-    def getAddress(self, symbol):
+    def get_address(self, symbol):
         """Return the address associated with the `symbol`"""
         return self.symbol_table[symbol]

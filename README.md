@@ -71,7 +71,11 @@ In Project 2, we are going to implement:
 
 ## Course
 
+### Combinational vs. Sequential
+
 The chips that we built in Project 1 and Project 2 are **time-independent** (or **combinational**). In this chapter, we introduce the concept of **time** and move on to **time-dependent** (or **sequential**) logic.
+
+### Clock Cycle
 
 Time is a profound notion. In computer science, we have no way to model **continuous** time as what we are experience in real life. Instead, we divide time into small chunks so that it becomes **discrete**. Each chunk is called a **clock cycle**, and it is the smallest time interval that a computer can measure. The choice of clock cycle is not random. It must follow these two principles:
 
@@ -80,13 +84,15 @@ Time is a profound notion. In computer science, we have no way to model **contin
 
 In order to balance out these two conditions, **we let clock cycle to be slightly larger than the maximal time delay in any chip in the system**.
 
+### Data Flip-Flop (DFF)
+
 With the notion of (discrete) time, we are ready to implement computer memory. Memory chips are designed to "remember", or store, information over time. The low-level devices that facilitate this storage abstraction are named **flip-flop gates**, of which there are several variants. In Nand to Tetris we use a variant named **data flip-flop**, or **DFF**. Like the Nand chip, DFF is given to us so we are not going to implement it. We are going to implement the following types of computer memory:
 
 - Registers
 - RAM
 - Counter
 
-Note that the "counter" here is just the program counter.
+Note that the "counter" mentioned here is the **Program Counter**.
 
 ## Project
 
@@ -105,7 +111,33 @@ In Project 3, we are going to implement:
 
 ## Course
 
+### A-instruction (@xxx)
 
+The A-instruction sets the `A` register to some 15-bit value. In binary, an A-instruction takes the form `0vvvvvvvvvvvvvvv`, where 0 = opcode and vvvvvvvvvvvvvvv = 15-bit value of xxx.
+
+### C-instruction (dest = comp;jump)
+
+The C-instruction answers three questions: what to compute (an ALU operation, denoted `comp`), where to store the computed value (`dest`), and what to do next (`jump`):
+
+- **comp:** 
+- **dest:** 
+- **jump:** 
+
+In binary, a C-instruction takes the form `111accccccddjjj`, where 
+
+### Symbols
+
+The symbols fall into three functional categories:
+
+1. **Predefined Symbols:** representing special memory addresses.
+2. **Label Symbols:** representing destinations of goto instructions.
+3. **Variable Symbols:** representing variables.
+
+In particular, predefined symbols include:
+
+- **R0, R1, ... , R15:** These symbols are bound to the values 0 to 15.
+- **SP, LCL, ARG, THIS, THAT:** These symbols are bound to the values 0, 1, 2, 3, and 4, respectively.
+- **SCREEN, KBD:** SCREEN and KBD are bound, respectively, to the values 16384 and 24576 (in hexidecimal: 4000 and 6000), which are the agreed-upon base addresses of the screen memory map and the keyboard memory map.
 
 ## Project
 

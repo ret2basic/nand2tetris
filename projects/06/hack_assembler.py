@@ -3,36 +3,25 @@ from symbol_table import SymbolTable
 from parser import Parser
 import sys
 
+DEBUG = 0
+
 class HackAssembler():
-
     def __init__(self):
-        pass
+        # Initialization
+        self.code = Code()
+        self.symbol_table = SymbolTable()
+        self.parser = Parser(DEBUG)
+        # The binary code that will be written to Prog.hack
+        self.binary_strings = []
 
-    def main(self, name, result):
-        """"""
-        # Parse command line argument
-        if len(sys.argv) != 2:
-            print("Usage: python3 hack_assembler.py Prog.asm")
-            sys.exit(1)  
-        filename = sys.argv[1]
-
-        # Main logic
-        self.initialization(filename)
+    def main(self):
+        """Drives the entire translation process."""
+        # First pass: builds a symbol table, adds all the label symbols to the table, and generates no code.
         self.first_pass()
+        # Second pass: handles the variable symbols and generates binary code, using the symbol table.
         self.second_pass()
-
-        # Store the result in a file
-        with open(name + ".hack", "w+") as f:
-            for i in result:
-                f.writelines(i + "\n")
-
-    def initialization(self, filename):
-        """The assembler creates a symbol table and initializes it with
-        all the pre-defined symbols and their pre-allocated values.
-        """
-        code = Code()
-        symboltable = SymbolTable()
-        parser = Parser(filename)
+        # Write the binary code to Prog.hack
+        self.write_to_file()
 
     def first_pass(self):
         """The assembler goes through the entire assembly program,line by line,
@@ -44,7 +33,13 @@ class HackAssembler():
         the assembler adds a new entry to the symbol table,
         associating the symbol xxx with the current line number plus 1.
         """
-        pass
+        while self.parser.has_more_lines():
+            self.parser.advance()
+            # Add all the label symbols to the symbol table
+            if self.parser.instruction_type() == "L":
+                symbol = self.parser.line[1:-1]
+                address = self.parser.j
+                self.symbol_table.add_entry(symbol, address)
 
     def second_pass(self):
         """The assembler goes again through the entire program and parses each line
@@ -56,8 +51,43 @@ class HackAssembler():
         is the next available address in the RAM space designated for variables, and (ii) completes
         the instruction's translation, using this address.
         """
-        pass
+
+        # Reset parse.i and parse.j
+        self.parser.i, self.parser.j = 0, 0
+
+        while self.parser.has_more_lines():
+            self.parser.advance()
+            binary_string = ""
+            # A-instruction
+            if self.parser.instruction_type() == "A":
+                num = self.parser.symbol(self.symbol_table)
+                binary = bin(num)[2:]
+                binary_string = binary.rjust(16, "0")
+                self.binary_strings.append(binary_string)
+            # C-instruction
+            elif self.parser.instruction_type() == "C":
+                if DEBUG:
+                    print(f"{self.parser.line = }")
+                dest_in_binary = self.parser.dest(self.code)
+                comp_in_binary = self.parser.comp(self.code)
+                jump_in_binary = self.parser.jump(self.code)
+                
+                binary_string = "111" + comp_in_binary + dest_in_binary + jump_in_binary
+                self.binary_strings.append(binary_string)
+
+    def write_to_file(self):
+        """Write the binary code to a file."""
+        if DEBUG:
+            print(f"{self.binary_strings = }")
+
+        with open(sys.argv[1].split(".")[0] + ".hack", "w") as f:
+            for binary_string in self.binary_strings:
+                f.writelines(binary_string + "\n")
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+            print("Usage: python3 hack_assembler.py Prog.asm")
+            sys.exit(1)
+
     hack_assembler = HackAssembler()
     hack_assembler.main()

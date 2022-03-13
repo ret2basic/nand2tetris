@@ -4,12 +4,9 @@ In this project, we are going to implement an **assembler** in Python. The assem
 
 - `parser.py`: parsing the input into instructions and instructions into fields.
 - `code.py`: translating the fields (symbolic mnemonics) into binary codes.
+- `hack_assembler.py`: drives the entire translation process.
 - `symbol_table.py`: resolving symbols (labels in assembly language) into actual addresses.
-- `hack_assembler.py`
-  - This is the main program that drives the entire assembly process, using the services of the Parser and Code modules.
-  - The 
 
-  
 ## 1. `code.py`
 
 This module provides services for translating symbolic Hack mnemonics into their binary codes.Specifically, it translates Hack mnemonics into their binary codes according to the language.
@@ -26,5 +23,6 @@ The Parser encapsulates access to the input assembly code. In particular, it pro
 
 
 
-
 ## 4. `hack_assembly.py`
+
+This is the main program that drives the entire assembly process, using the services of the Parser and Code modules.
