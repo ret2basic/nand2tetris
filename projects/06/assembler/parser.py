@@ -81,15 +81,25 @@ class Parser():
             return "L"
         # C-instruction: dest=comp;jump
         else:
-            # Parse the `comp` component in C-instruction
-            self._comp = self.line.split("=")[-1].split(";")[0]
-            # Parse the `dest` component in C-instruction
-            if "=" in self.line: 
-                self._dest = self.line.split("=")[0]
-            # Parse the `jump` component in C-instruction
-            if ";" in self.line: 
-                self._jump = self.line.split(";")[-1]
-            
+            # find() returns -1 if the argument is not found
+            index_1 = self.line.find("=")
+            index_2 = self.line.find(";")
+            # Both "=" and ";" exists in the line: dest=comp;jump
+            if index_1 != -1 and index_2 != -1:
+                self._comp = self.line[index_1+1: index_2]
+                self._dest = self.line[:index_1]
+                self._jump = self.line[index_2+1:]
+            # Only ";" exists in the line: comp;jump
+            elif index_1 == -1:
+                self._comp = self.line[:index_2]
+                self._dest = ""
+                self._jump = self.line[index_2+1:]
+            # Only "=" exists in the line: dest=comp
+            elif index_2 == -1:
+                self._comp = self.line[index_1+1:]
+                self._dest = self.line[:index_1]
+                self._jump = ""
+                
             return "C"
 
     def symbol(self, symbol_table):
