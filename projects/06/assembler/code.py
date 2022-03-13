@@ -7,11 +7,11 @@ class Code():
         lookup_table = {
             'M' : '001',
             'D' : '010',
-            'DM' : '011',
+            'MD' : '011',
             'A' : '100',
             'AM' : '101',
             'AD' : '110',
-            'ADM' : '111',
+            'AMD' : '111',
         }
 
         if mnemonic in lookup_table:

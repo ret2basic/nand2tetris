@@ -1,0 +1,69 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/05/Computer.hdl
+
+/**
+ * The HACK computer, including CPU, ROM and RAM.
+ * When reset is 0, the program stored in the computer's ROM executes.
+ * When reset is 1, the execution of the program restarts. 
+ * Thus, to start a program's execution, reset must be pushed "up" (1)
+ * and "down" (0). From this point onward the user is at the mercy of 
+ * the software. In particular, depending on the program's code, the 
+ * screen may show some output and the user may be able to interact 
+ * with the computer via the keyboard.
+ */
+
+CHIP Computer {
+
+    IN reset;
+
+    PARTS:
+    // CPU
+    // Executes instructions
+
+    // Input:
+    //     instruction[16]  // Instruction to execute
+    //     inM[16]          // The instruction's M input (contents of `RAM[A]`)
+    //     reset            // Signals whether to re-start the program (if `reset==1`)
+                            // or continue executing the program (if `reset==0`).
+
+    // Output:
+    //     outM[16]         // Written to `RAM[addressM]`, the instruction's `M` output
+    //     addressM[15]     // At which address to write?
+    //     writeM           // Write to the memory?
+    //     pc[15]           // Address of next instruction
+    CPU(inM=inM, instruction=instruction, reset=reset, 
+        writeM=writeM, outM=outM, addressM=addressM, pc=pc);
+    
+    // Memory (Data Memory)
+    // The complete address space of the Hack computer's data memory.
+    // Only the top 16K+8K+1 words of the address space are used.
+    // Accessing an address in the range 0 - 16383 results in accessing `RAM16K`;
+    // Accessing an address in the range 16384 - 24575 results in accessing Screen;
+    // Accessing the address 24576 results in accessing Keyboard;
+    // Accessing any other address is invalid.
+
+    // Input:
+    //     in[16]           // What to write 
+    //     address[15]      // Where to read/write
+    //     load             // Write-enable bit  
+
+    // Output:
+    //     out[16]          // Value at the given address
+    Memory(in=outM, load=writeM, address=addressM,
+           out=inM);
+
+    // ROM32K (Instruction Memory):
+    // Emits the 16-bit value stored in the address selected by the
+    // `address` input. It is assumed that the chip is preloaded
+    // with a program written in the Hack machine language.
+    
+    // Input:
+    //     address[15]      // The address stored in the Program Counter `pc`
+
+    // Output:
+    //     out[16]          // The 16-bit value stored at `address[15]`
+    ROM32K(address=pc,
+           out=instruction);
+}
