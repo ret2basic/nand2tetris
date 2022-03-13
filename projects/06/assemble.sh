@@ -10,14 +10,17 @@ python3 assembler/hack_assembler.py rect/Rect.asm
 python3 assembler/hack_assembler.py pong/Pong.asm
 
 # Copy the output files to the current directory
-mkdir submission
-cp add/Add.hack submission
-cp max/Max.hack submission
-cp rect/Rect.hack submission
-cp pong/Pong.hack submission
+mkdir submission ; cd submission
+cp ../add/Add.hack .
+cp ../max/Max.hack .
+cp ../rect/Rect.hack .
+cp ../pong/Pong.hack .
 
 # Create a random prog.txt file
-echo "Empty file" > submission/prog.txt
+echo "Empty file" > prog.txt
 
 # Create project6.zip
-zip submission/project6.zip submission/Add.hack submission/Max.hack submission/Rect.hack submission/Pong.hack submission/prog.txt
+zip project6.zip Add.hack Max.hack Rect.hack Pong.hack prog.txt
+
+# Reset
+cd ..
