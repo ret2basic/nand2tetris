@@ -245,13 +245,26 @@ In Part II, we are going to build:
 
 ## Course
 
+**Virtual Machine (VM)** is the intermediate layer between high-level source code and low-level machine language. For example, JVM. VM gives *cross-platform* compatibility: since the virtual machine may be realized with relative ease on many hardware platforms, the same VM code can run as is on any device equipped with such a VM implementation. The downside of this VM two-tier translation process is *reduced efficiency*.
 
+The desired VM language should satisfy several requirements:
+
+- The language should have a reasonable expressive power.
+  - arithmetic-logical commands
+  - push/pop commands
+  - branching commands
+  - function commands
+- The language should be sufficiently low-level in order to be tight and efficient.
+  
+One way to satisfy these somewhat conflicting requirements is to base the interim VM language on an abstract architecture called a **stack machine**.
 
 ## Project
 
 In Project 7, we are going to implement:
 
-
+- `parser.py`
+- `code_writer.py`
+- `vm_translator.py`
 
 # Chapter 8: Virtual Machine II: Control
 
