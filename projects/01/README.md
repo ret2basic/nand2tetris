@@ -1,6 +1,6 @@
 # Project 1
 
-In this project, we are going to implement many commonly-used chips from scratch, starting with the built-in **Nand** chip.
+**Handout:** https://www.nand2tetris.org/project01
 
 **Note:** In HDL, bits are numbered from right to left, starting with 0. For example, we have sel = 110, then:
 

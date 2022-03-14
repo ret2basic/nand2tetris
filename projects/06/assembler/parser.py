@@ -2,8 +2,6 @@ import sys
 from code import Code
 from symbol_table import SymbolTable
 
-DEBUG = 1
-
 class Parser():
     def __init__(self, DEBUG):
         # DEBUG mode
@@ -68,7 +66,7 @@ class Parser():
                 self.j += 1
 
     def instruction_type(self):
-        """Returns the type of the current instruction"
+        """Returns the type of the current instruction.
         A_INSTRUCTION for @xxx, where xxx is either a decimal number or a symbol.
         C_INSTRUCTION for dest=comp;jump.
         L_INSTRUCTION for (xxx), where xxx is a symbol.

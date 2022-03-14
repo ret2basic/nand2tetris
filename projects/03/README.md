@@ -1,6 +1,6 @@
 # Project 3
 
-In this project, we are going to implement **RAM** and **Program Counter** based on the combinatorial gates from Project 1 and 2. 
+**Handout:** https://www.nand2tetris.org/project03
 
 **Note:** in HDL, bits are numbered from right to left, starting with 0. For example, we have address = abcdef, then:
 

@@ -1,6 +1,6 @@
 # Project 2
 
-In this project, we are going to implement **ALU** based on the logical gates from Project 1. 
+**Handout:** https://www.nand2tetris.org/project02
 
 ## 1. HalfAdder
 

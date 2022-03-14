@@ -1,3 +1,13 @@
 # Project 5
 
-In this project, we are going to implement 
+**Handout:** https://www.nand2tetris.org/project05
+
+## Memory
+
+
+
+## CPU
+
+
+
+## Computer
