@@ -5,12 +5,8 @@ class CodeWriter():
         """Opens an output file/stream and
         gets ready to write into it.
         """
-
-        # The relative pathname
         self.filename = sys.argv[1].split("/")[-1]
-        # Output file handler
-        # It will be closed by the close() method.
-        self.file = open(self.filename.split(".")[0] + ".asm", "w")
+        self.file = open("".join(sys.argv[1].split(".vm")[0]) + ".asm", "w")
 
         self.count = 0
 

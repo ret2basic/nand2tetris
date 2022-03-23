@@ -4,24 +4,13 @@ from code_writer import CodeWriter
 
 class VMTranslator():
     def __init__(self):
-        self.DEBUG = 1
+        self.DEBUG = 0
         # Initialization
         self.parser = Parser(self.DEBUG)
         self.code_writer = CodeWriter()
 
         # The assembly code will be written to Prog.asm
         self.assembly_codes = []
-
-    # def main(self):
-    #     # Pathname
-    #     absolute_pathname = sys.argv[1].split("/")
-    #     relative_pathname = absolute_pathname[1]
-    #     relative_pathname_without_extension = relative_pathname.split(".")[0]
-
-    #     name1 = "./" + "/".join(absolute_pathname)
-    #     name2 = "./" + "/".join(absolute_pathname[:-1] + [relative_pathname_without_extension])
-
-    #     self.vm_translate()
 
     def vm_translate(self):
         while self.parser.has_more_lines():
