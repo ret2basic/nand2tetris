@@ -7,7 +7,7 @@ class Parser():
         # Current command
         self.command = ""
         # Lines of assembly code stored in a list
-        self.commands = []
+        self.text = []
         # Number of lines of assembly code
         self.total_lines = 0
         # Current line number
@@ -19,25 +19,21 @@ class Parser():
         """Opens the assembly code and stores the content in a list."""
         with open(asm_file, "r") as f:
             for line in f.readlines():
-                tokens = line.split()
                 # Skip white space
-                if len(tokens) == 0:
+                if line == "\n":
                     pass
                 # Skip comments
-                elif tokens[0] == "//":
+                elif line.startswith("//"):
                     pass
                 else:
-                    # Tokens => string
-                    parsed = "".join(tokens)
-                    # Delete in-line comments
-                    parsed = parsed.split("//")[0]
-                    # Add this parsed line of code to self.commands
-                    self.commands.append(parsed)
+                    # A line of code => tokens
+                    tokens = line.split()
+                    self.text.append(tokens)
 
-            self.total_lines = len(self.commands)
+            self.total_lines = len(self.text)
             
             if self.DEBUG:        
-                print(f"{self.commands = }")
+                print(f"{self.text = }")
 
     def has_more_lines(self):
         """Are there more lines in the input?"""
@@ -49,7 +45,7 @@ class Parser():
         Initially there is no current command.
         """
         if self.has_more_lines():
-            self.command = self.commands[self.i]
+            self.command = self.text[self.i]
             self.i += 1
 
     def command_type(self):

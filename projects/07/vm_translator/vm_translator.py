@@ -2,33 +2,33 @@ import sys
 from parser import Parser
 from code_writer import CodeWriter
 
-DEBUG = 1
-
 class VMTranslator():
     def __init__(self):
+        self.DEBUG = 1
         # Initialization
-        parser = Parser()
-        code_writer = CodeWriter()
+        self.parser = Parser(self.DEBUG)
+        self.code_writer = CodeWriter()
 
         # The assembly code will be written to Prog.asm
         self.assembly_codes = []
 
-    def main(self):
-        # Pathname
-        absolute_pathname = sys.argv[1].split("/")
-        relative_pathname = absolute_pathname[1]
-        relative_pathname_without_extension = relative_pathname.split(".")[0]
+    # def main(self):
+    #     # Pathname
+    #     absolute_pathname = sys.argv[1].split("/")
+    #     relative_pathname = absolute_pathname[1]
+    #     relative_pathname_without_extension = relative_pathname.split(".")[0]
 
-        name1 = "./" + "/".join(absolute_pathname)
-        name2 = "./" + "/".join(absolute_pathname[:-1] + [relative_pathname_without_extension])
+    #     name1 = "./" + "/".join(absolute_pathname)
+    #     name2 = "./" + "/".join(absolute_pathname[:-1] + [relative_pathname_without_extension])
 
-        self.vm_translate()
-        self.write_to_file()
+    #     self.vm_translate()
 
     def vm_translate(self):
-        while self.parser.has_more_commands():
+        while self.parser.has_more_lines():
             self.parser.advance()
             command = self.parser.command[0]
+            if self.DEBUG:
+                print(f"{command = }")
             # Arithmetic commands
             if self.parser.command_type() == "C_ARITHMETIC":
                 self.code_writer.write_arithmetic(command)
@@ -40,14 +40,14 @@ class VMTranslator():
             
         self.code_writer.close()
 
-        def write_to_file(self):
-            """Write the assembly code to a file."""
-            if DEBUG:
-                print(f"{self.assembly_codes = }")
+    # def write_to_file(self):
+    #     """Write the assembly code to a file."""
+    #     if self.DEBUG:
+    #         print(f"{self.assembly_codes = }")
 
-            with open(sys.argv[1].split(".")[0] + ".asm", "w") as f:
-                for assembly_code in self.assembly_codes:
-                    f.writelines(assembly_code + "\n")
+    #     with open(sys.argv[1].split("/")[-1].split(".")[0] + ".asm", "w") as f:
+    #         for assembly_code in self.assembly_codes:
+    #             f.writelines(assembly_code + "\n")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -55,4 +55,4 @@ if __name__ == "__main__":
         sys.exit(1)
     
     vm_translator = VMTranslator()
-    vm_translator.main()
+    vm_translator.vm_translate()
