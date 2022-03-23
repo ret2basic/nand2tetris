@@ -46,4 +46,4 @@ if __name__ == "__main__":
         sys.exit(1)
     
     vm_translator = VMTranslator()
-    vm_translator()
+    vm_translator.vm_translate()
