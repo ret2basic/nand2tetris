@@ -40,19 +40,10 @@ class VMTranslator():
             
         self.code_writer.close()
 
-    # def write_to_file(self):
-    #     """Write the assembly code to a file."""
-    #     if self.DEBUG:
-    #         print(f"{self.assembly_codes = }")
-
-    #     with open(sys.argv[1].split("/")[-1].split(".")[0] + ".asm", "w") as f:
-    #         for assembly_code in self.assembly_codes:
-    #             f.writelines(assembly_code + "\n")
-
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print('Usage: python3 vm_translator.py Prog.vm')
+        print('Usage: python3 VMTranslator.py Prog.vm')
         sys.exit(1)
     
     vm_translator = VMTranslator()
-    vm_translator.vm_translate()
+    vm_translator()
