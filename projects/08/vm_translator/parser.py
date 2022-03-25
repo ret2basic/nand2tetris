@@ -1,7 +1,7 @@
 import sys
 
 class Parser():
-    def __init__(self, DEBUG):
+    def __init__(self, filename, DEBUG):
         # DEBUG mode
         self.DEBUG = DEBUG
         # Current command
@@ -13,10 +13,11 @@ class Parser():
         # Current line number
         self.i = 0
 
-        self.parse(sys.argv[1])
+        self.parse(filename)
 
     def parse(self, vm_file):
-        """Opens the assembly code and stores the content in a list."""
+        """Opens the assembly code and tokenize it."""
+
         with open(vm_file, "r") as f:
             for line in f.readlines():
                 # Skip white space
@@ -28,6 +29,9 @@ class Parser():
                 else:
                     # A line of code => tokens
                     tokens = line.split()
+                    if "//" in tokens:
+                        index = tokens.index("//")
+                        tokens = tokens[:index]
                     self.text.append(tokens)
 
             self.total_lines = len(self.text)
