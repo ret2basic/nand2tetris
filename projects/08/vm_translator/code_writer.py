@@ -5,17 +5,18 @@ class CodeWriter():
         """Opens an output file/stream and
         gets ready to write into it.
         """
-        self.filename = filename
-        self.file = open(self.filename + ".asm", "w")
+        self.set_file_name(filename)
+        self.file = open(self.filename, "w")
+
         self.count = 0
-
         self.tags = ["LCL", "ARG", "THIS", "THAT"]
-
         self.function_name = ""
         self.return_counter = 0
 
+        self.write_init()
+
     def set_file_name(self, filename):
-        self.filename = filename.split(".vm")[0]
+        self.filename = filename
 
     def write_arithmetic(self, command):
         """Writes to the output file the assembly

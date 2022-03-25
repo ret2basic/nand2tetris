@@ -50,30 +50,27 @@ class VMTranslator():
                 code_writer.write_call(function_name, n_args)
             else:
                 code_writer.write_return()
-            
-        code_writer.close()
 
     def vm_translate_for_file(self):
         """Handle the case when a file is given as input."""
         parser = Parser(sys.argv[1], self.DEBUG)
-        code_writer = CodeWriter(sys.argv[1].split(".vm")[0])
+        code_writer = CodeWriter(sys.argv[1].split(".vm")[0] + ".asm")
         self.vm_translate(parser, code_writer)
+        code_writer.close()
 
     def vm_translate_for_directory(self):
         """Handle the case when a directory is given as input."""
 
-        code_writer = CodeWriter(sys.argv[1] + "/" + sys.argv[1].split("/")[-1])
-        code_writer.write_init()
-
         # Initialize a queue and parse the files inside the directory
         files = deque()
         directory = os.listdir(sys.argv[1])
+        print(directory)
 
         for file in directory:
             filename_tokens = file.split(".")
             # If the extension is ".vm", add this file to the queue
             if filename_tokens[-1] == "vm":
-                files.append(sys.argv[1] + "/" + file)
+                files.append(filename_tokens[0])
 
         # If "Sys" is in the queue, move it to the front of the queue
         if "Sys" in files:
@@ -82,9 +79,10 @@ class VMTranslator():
 
         for filename in files:
             print(f"{filename = }")
-            parser = Parser(filename, self.DEBUG)
-            code_writer.set_file_name(filename)
+            parser = Parser(sys.argv[1] + "/" + filename + ".vm", self.DEBUG)
+            code_writer = CodeWriter(sys.argv[1] + "/" + filename + ".asm")
             self.vm_translate(parser, code_writer)
+            code_writer.close()
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -95,12 +93,11 @@ if __name__ == "__main__":
     if ".vm" not in sys.argv[1]:
         is_directory = True
     
-    data = sys.argv[1].split("/")
-    Name = data[-1].split(".")
-    name = Name[0]
-    filename = './' + '/'.join(data + [name])
-    
     vm_translator = VMTranslator()
+
+    # name = Name[0]
+    # file = './' + '/'.join(data + [name])
+    # print(f"{file = }")
 
     if is_directory:
         vm_translator.vm_translate_for_directory()
