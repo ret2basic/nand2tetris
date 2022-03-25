@@ -61,7 +61,7 @@ class Parser():
         other_commands = {
             "push" : "C_PUSH", "pop" : "C_POP", "label" : "C_LABEL",
             "goto" : "C_GOTO", "if-goto" : "C_IF",
-            "function" : "C_FUNCTION", "call" : "C_RETURN",
+            "function" : "C_FUNCTION", "return" : "C_RETURN", "call" : "C_CALL",
         }
 
         if self.command[0] in arithmetic_commands + logical_commands:
@@ -69,7 +69,7 @@ class Parser():
         elif self.command[0] in other_commands:
             return other_commands[self.command[0]]
         else:
-            return "C_CALL"
+            print("Command not recognized.")
 
     def arg1(self):
         """Returns the first argument of the current command.

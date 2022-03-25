@@ -500,8 +500,6 @@ class CodeWriter():
             "D=M\n",
             "@SP\n",
             "M=D+1\n",
-
-
         ])
 
         # THAT = *(frame - 1)

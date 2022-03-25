@@ -57,7 +57,7 @@ class Parser():
         other_commands = {
             "push" : "C_PUSH", "pop" : "C_POP", "label" : "C_LABEL",
             "goto" : "C_GOTO", "if-goto" : "C_IF",
-            "function" : "C_FUNCTION", "call" : "C_RETURN",
+            "function" : "C_FUNCTION", "return" : "C_RETURN", "call" : "C_CALL",
         }
 
         if self.command[0] in arithmetic_commands + logical_commands:
