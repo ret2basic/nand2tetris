@@ -1,7 +1,7 @@
 import sys
 
 class CodeWriter():
-    def __init__(self, filename):
+    def __init__(self, filename, is_directory):
         """Opens an output file/stream and
         gets ready to write into it.
         """
@@ -13,7 +13,8 @@ class CodeWriter():
         self.function_name = ""
         self.return_counter = 0
 
-        self.write_init()
+        if is_directory:
+            self.write_init()
 
     def set_file_name(self, filename):
         self.filename = filename

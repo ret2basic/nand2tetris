@@ -51,14 +51,14 @@ class VMTranslator():
             else:
                 code_writer.write_return()
 
-    def vm_translate_for_file(self):
+    def vm_translate_for_file(self, is_directory):
         """Handle the case when a file is given as input."""
         parser = Parser(sys.argv[1], self.DEBUG)
-        code_writer = CodeWriter(sys.argv[1].split(".vm")[0] + ".asm")
+        code_writer = CodeWriter(sys.argv[1].split(".vm")[0] + ".asm", is_directory)
         self.vm_translate(parser, code_writer)
         code_writer.close()
 
-    def vm_translate_for_directory(self):
+    def vm_translate_for_directory(self, is_directory):
         """Handle the case when a directory is given as input."""
 
         # Initialize a queue and parse the files inside the directory
@@ -77,12 +77,19 @@ class VMTranslator():
             files.remove("Sys")
             files.appendleft("Sys")
 
+        filename_tokens = sys.argv[1].split("/")
+        print(f"{filename_tokens = }")
+        if filename_tokens[-1]:
+            code_writer = CodeWriter(sys.argv[1] + filename_tokens[-1] + ".asm", is_directory)
+        else:
+            code_writer = CodeWriter(sys.argv[1] + filename_tokens[-2] + ".asm", is_directory)
+
         for filename in files:
             print(f"{filename = }")
             parser = Parser(sys.argv[1] + "/" + filename + ".vm", self.DEBUG)
-            code_writer = CodeWriter(sys.argv[1] + "/" + filename + ".asm")
             self.vm_translate(parser, code_writer)
-            code_writer.close()
+
+        code_writer.close()
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -100,6 +107,6 @@ if __name__ == "__main__":
     # print(f"{file = }")
 
     if is_directory:
-        vm_translator.vm_translate_for_directory()
+        vm_translator.vm_translate_for_directory(is_directory)
     else:
-        vm_translator.vm_translate_for_file()
+        vm_translator.vm_translate_for_file(is_directory)
