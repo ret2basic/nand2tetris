@@ -62,7 +62,7 @@ class VMTranslator():
     def vm_translate_for_directory(self):
         """Handle the case when a directory is given as input."""
 
-        code_writer = CodeWriter(sys.argv[1])
+        code_writer = CodeWriter(sys.argv[1] + "/" + sys.argv[1].split("/")[-1])
         code_writer.write_init()
 
         # Initialize a queue and parse the files inside the directory
@@ -81,17 +81,20 @@ class VMTranslator():
             files.appendleft("Sys")
 
         for filename in files:
+            print(f"{filename = }")
             parser = Parser(filename, self.DEBUG)
+            code_writer.set_file_name(filename)
             self.vm_translate(parser, code_writer)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print('Usage: python3 VMTranslator.py Prog.vm')
+        print('Usage: python3 VMTranslator.py <vm_file/directory>')
         sys.exit(1)
 
-    is_directory = True
-    if len(sys.argv[1].split(".")) == 2:
-        is_directory = False
+    if ".vm" in sys.argv[1]:
+        is_file = True
+    else:
+        is_directory = True
     
     data = sys.argv[1].split("/")
     Name = data[-1].split(".")
@@ -100,7 +103,10 @@ if __name__ == "__main__":
     
     vm_translator = VMTranslator()
 
-    if is_directory:
+    if is_file:
+        vm_translator.vm_translate_for_file()
+    elif is_directory:
         vm_translator.vm_translate_for_directory()
     else:
-        vm_translator.vm_translate_for_file()
+        print("The input format is wrong.")
+        exit(1)

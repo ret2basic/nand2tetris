@@ -76,6 +76,10 @@ class Parser():
         In the case of C_ARITHMETIC, the command itself (add, sub, etc.) is returned.
         Should not be called if the current command is C_RETURN.
         """
+        
+        if self.DEBUG:
+            print(f"{self.command = }")
+
         if self.command_type() == "C_RETURN":
             return None
         elif self.command_type() == "C_ARITHMETIC":
