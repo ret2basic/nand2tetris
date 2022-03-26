@@ -70,6 +70,7 @@ class Parser():
             return other_commands[self.command[0]]
         else:
             print("Command not recognized.")
+            exit(0)
 
     def arg1(self):
         """Returns the first argument of the current command.

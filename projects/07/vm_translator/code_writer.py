@@ -202,12 +202,19 @@ class CodeWriter():
         ])
 
     def write_push(self, command, segment, index):
+
         if segment == "constant":
-            self.file.write("@" + str(index) + "\n")
-            self.file.write("D=A\n")
+            self.file.writelines([
+                "@" + str(index) + "\n",
+                "D=A\n",
+            ])
+        
         elif segment == "local" or segment == "argument" or segment == "this" or segment == "that":
-            self.file.write("@" + str(index) + "\n")
-            self.file.write("D=A\n")
+            self.file.writelines([
+                "@" + str(index) + "\n",
+                "D=A\n",
+            ])
+
             if segment == "local":
                 self.file.write("@LCL\n")
             elif segment == "argument":
@@ -216,38 +223,56 @@ class CodeWriter():
                 self.file.write("@THIS\n")
             else:
                 self.file.write("@THAT\n")
-            self.file.write("A=D+M\n")
-            self.file.write("D=M\n")
+            
+            self.file.writelines([
+                "A=D+M\n",
+                "D=M\n",
+            ])
+
         elif segment == "temp":
-            self.file.write("@" + str(5 + index) + "\n")
-            self.file.write("D=M\n")
+            self.file.writelines([
+                "@" + str(5 + index) + "\n",
+                "D=M\n",
+            ])
+        
         elif segment == "pointer":
             if index == 0:
                 self.file.write("@THIS\n")
             else:
                 self.file.write("@THAT\n")
             self.file.write("D=M\n")
-        elif segment == "static":
-            self.file.write("@" + self.filename + str(index) + "\n")
-            self.file.write("D=M\n")
 
-        self.file.write("@SP\n")
-        self.file.write("A=M\n")
-        self.file.write("M=D\n")
-        self.file.write("@SP\n")
-        self.file.write("M=M+1\n")
+        elif segment == "static":
+            self.file.writelines([
+                "@" + self.filename + str(index) + "\n",
+                "D=M\n",
+            ])
+
+        self.file.writelines([
+            "@SP\n",
+            "A=M\n",
+            "M=D\n",
+            "@SP\n",
+            "M=M+1\n",
+        ])
 
     def write_pop(self, command, segment, index):
-        self.file.write("@SP\n")
-        self.file.write("M=M-1\n")
-        self.file.write("A=M\n")
-        self.file.write("D=M\n")
-        
+
+        self.file.writelines([
+            "@SP\n",
+            "M=M-1\n",
+            "A=M\n",
+            "D=M\n",
+        ])
+
         if segment == "local" or segment == "argument" or segment == "this" or segment == "that":
-            self.file.write("@R13\n")
-            self.file.write("M=D\n")
-            self.file.write("@" + str(index) + "\n")
-            self.file.write("D=A\n")
+            self.file.writelines([
+                "@R13\n",
+                "M=D\n",
+                "@" + str(index) + "\n",
+                "D=A\n",
+            ])
+
             if segment == "local":
                 self.file.write("@LCL\n")
             elif segment == "argument":
@@ -256,24 +281,33 @@ class CodeWriter():
                 self.file.write("@THIS\n")
             else:
                 self.file.write("@THAT\n")
+            
+            self.file.writelines([
+                "D=D+M\n",
+                "@R14\n",
+                "M=D\n",
+                "@R13\n",
+                "D=M\n",
+                "@R14\n",
+                "A=M\n",
+                "M=D\n",
+            ])
 
-            self.file.write("D=D+M\n")
-            self.file.write("@R14\n")
-            self.file.write("M=D\n")
-            self.file.write("@R13\n")
-            self.file.write("D=M\n")
-            self.file.write("@R14\n")
-            self.file.write("A=M\n")
-            self.file.write("M=D\n")
         elif segment == "temp":
-            self.file.write("@" + str(5 + index) + "\n")
-            self.file.write("M=D\n")
+            self.file.writelines([
+                "@" + str(5 + index) + "\n",
+                "M=D\n",
+            ])
+
         elif segment == "pointer":
             if index == 0:
                 self.file.write("@THIS\n")
             elif index == 1:
                 self.file.write("@THAT\n")
             self.file.write("M=D\n")
+
         elif segment == "static":
-            self.file.write("@" + self.filename + str(index) + "\n")
-            self.file.write("M=D\n")
+            self.file.writelines([
+                "@" + self.filename + str(index) + "\n",
+                "M=D\n",
+            ])
