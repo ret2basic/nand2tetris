@@ -1,6 +1,7 @@
 #!/bin/bash
 
 rm -rf submission
+mkdir submission
 cd vm_translator
 zip project8.zip code_writer.py lang.txt parser.py VMTranslator.py
 cd ..
