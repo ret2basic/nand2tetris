@@ -26,28 +26,29 @@ class VMTranslator():
                 segment = parser.arg1()
                 index = parser.arg2()
                 code_writer.write_push_pop(command, segment, index)
-            # Handle label commands
+            # Handle label command
             elif parser.command_type() == "C_LABEL":
                 label = parser.arg1()
                 code_writer.write_label(command, label)
-            # Handle goto commands
+            # Handle goto command
             elif parser.command_type() == "C_GOTO":
                 label = parser.arg1()
                 code_writer.write_goto(command, label)
-            # Handle if commands
+            # Handle if command
             elif parser.command_type() == "C_IF":
                 label = parser.arg1()
                 code_writer.write_if(command, label)
-            # Handle function commands
+            # Handle function command
             elif parser.command_type() == "C_FUNCTION":
                 function_name = parser.arg1()
                 n_vars = int(parser.arg2())
                 code_writer.write_function(function_name, n_vars)
-            # Handle call commands
+            # Handle call command
             elif parser.command_type() == "C_CALL":
                 function_name = parser.arg1()
                 n_args = int(parser.arg2())
                 code_writer.write_call(function_name, n_args)
+            # Handle return command
             else:
                 code_writer.write_return()
 
@@ -80,9 +81,9 @@ class VMTranslator():
         filename_tokens = sys.argv[1].split("/")
         print(f"{filename_tokens = }")
         if filename_tokens[-1]:
-            code_writer = CodeWriter(sys.argv[1] + filename_tokens[-1] + ".asm", is_directory)
+            code_writer = CodeWriter(sys.argv[1] + "/" + filename_tokens[-1] + ".asm", is_directory)
         else:
-            code_writer = CodeWriter(sys.argv[1] + filename_tokens[-2] + ".asm", is_directory)
+            code_writer = CodeWriter(sys.argv[1] + "/" + filename_tokens[-2] + ".asm", is_directory)
 
         for filename in files:
             print(f"{filename = }")

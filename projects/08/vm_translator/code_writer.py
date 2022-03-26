@@ -330,8 +330,8 @@ class CodeWriter():
         self.file.writelines([
             # Leave a comment
             "// " + command + " " + label + "\n",
-            # (function_name$label)
-            "(" + self.function_name + "$" + label + ")\n",
+            # @function_name$label
+            "@" + self.function_name + "$" + label + "\n",
             # Unconditional jump
             "0;JMP\n",
             # End the current block
@@ -377,7 +377,7 @@ class CodeWriter():
         ])
 
         # repeat n_vars times: push 0
-        for i in range(n_vars):
+        for _ in range(n_vars):
             self.file.writelines([
                 # RAM[SP] = 0
                 "@SP\n",

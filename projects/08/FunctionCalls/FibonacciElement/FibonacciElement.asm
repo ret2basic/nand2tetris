@@ -124,7 +124,7 @@ M=D
 (Sys.init$WHILE)
 
 // goto WHILE
-(Sys.init$WHILE)
+@Sys.init$WHILE
 0;JMP
 
 //Main.fibonacci 0
@@ -185,7 +185,7 @@ D=D-A
 D;JNE
 
 // goto IF_FALSE
-(Main.fibonacci$IF_FALSE)
+@Main.fibonacci$IF_FALSE
 0;JMP
 
 // label IF_TRUE
