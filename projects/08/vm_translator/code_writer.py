@@ -254,10 +254,12 @@ class CodeWriter():
             self.file.write("D=M\n")
 
         elif segment == "static":
-            self.file.write("@" + self.filename + str(index) + "\n")
-            self.file.write("D=M\n")
+            self.file.writelines([
+                "@" + self.filename + str(index) + "\n",
+                "D=M\n",
+            ])
 
-        self.file.writlines([
+        self.file.writelines([
             "@SP\n",
             "A=M\n",
             "M=D\n",
@@ -266,7 +268,7 @@ class CodeWriter():
         ])
 
     def write_pop(self, command, segment, index):
-        
+
         self.file.writelines([
             "@SP\n",
             "M=M-1\n",
