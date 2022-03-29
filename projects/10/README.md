@@ -31,11 +31,11 @@ The tokenizing and parsing tasks are completely independent of the target langua
 
 Each programming language specification includes the types of **tokens**, or words, that the language recognizes. In the Jack language, tokens fall into 5 categories:
 
-1. Keywords: like `class` and `while`
-2. Symbols: like `+` and `<`
-3. Integer constants: like `17` and `314`
-4. String constants: like `"FAQ"` and `"Frequently Asked Questions"`
-5. Identifiers: the textual labels used for naming variables, classes, and subroutines
+1. **Keywords:** like `class` and `while`
+2. **Symbols:** like `+` and `<`
+3. **Integer Constants:** like `17` and `314`
+4. **String Constants:** like `"FAQ"` and `"Frequently Asked Questions"`
+5. **Identifiers:** the textual labels used for naming variables, classes, and subroutines
 
 Taken together, the tokens defined by these lexical categories can be referred to as the language **lexicon**.
 
@@ -103,9 +103,9 @@ The **left side** specifies the rule's name, which is not part of the language. 
 
 the rule's **right side** describes the lingual pattern that the rule specifies. This pattern is a left-to-right sequence consisting of three building blocks:
 
-- Terminals: tokens, like `if`
-- Nonterminals: names of other rules, like `expression`
-- Qualifiers: `|`, `*`, `?`, `(`, `)`
+- **Terminals:** tokens, like `if`
+- ****Nonterminals:** names of other rules, like `expression`
+- **Qualifiers:** `|`, `*`, `?`, `(`, `)`
 
 For example, the rule `ifStatement: 'if' '(' expression ')' '{' statements '}'` stipulates that every valid instance of an `ifStatement` must:
 
@@ -124,7 +124,7 @@ A subset of Jack grammar:
 - `statements: statement*`
 - `statement: letStatement | ifStatement | whileStatement`
 - `letStatement: 'let' varName '=' expression ';'`
-- `ifStatement: `if` '(' expression ')' '{' statements '}'`
+- `ifStatement: `if '(' expression ')' '{' statements '}'`
 - `whileStatement: 'while' '(' expression ')' '{' statements '}'`
 - `expression: term(op term)?`
 - `term: varName | constant`
