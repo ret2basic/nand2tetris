@@ -1,4 +1,17 @@
-# Project 6
+# Chapter 6: Assembler
+
+## Overview
+
+Suppose we are dealing with the assembly code `load R3, 7`.The **assembler** parses each assembly instruction into its underlying fields, for example, `load`, `R3`, and, `7`, translates each field into its equivalent binary code, and finally **assembles** the generated bits into binary instruction that can be executed by the hardware. Pictorially:
+
+```
+           Assembler
+Assembly -------------> Binary
+```
+
+In this chapter we will build the Jack assembler in **Python**.
+
+## Project
 
 **Handout:** https://www.nand2tetris.org/project06
 
