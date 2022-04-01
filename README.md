@@ -1,6 +1,6 @@
 # nand2tetris
 
-![nand2tetris](https://github.com/ret2basic/nand2tetris/blob/main/nand2tetris.png?raw=true)
+![nand2tetris](nand2tetris.png)
 
 ## What is nand2tetris
 
