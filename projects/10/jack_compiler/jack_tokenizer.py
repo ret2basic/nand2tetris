@@ -50,14 +50,14 @@ class JackTokenizer():
             '"',
         }
     
-        self.encoding = {
+        self.replace_lookup = {
             "<": "&lt;",
             ">": "&gt;",
             '"': "&quot;",
             '&': "&amp;",
         }
 
-        self.encoding_words = [
+        self.replace_symbols = [
             '&',
             '"',
             "<",
@@ -70,28 +70,32 @@ class JackTokenizer():
         self.counter = 0
         filename_components = filename.split('/')
         self.filename = '/'.join(filename_components[:-1]) + '/' + filename_components[-1].split('.')[0]
-        self.parse_file(self.filename)
+        self.code_to_tokens(self.filename)
         self.max_length = len(self.tokens)
 
-    def parse_file(self, filename):
-        """File => Tokens"""
+    def code_to_tokens(self, filename):
+        """Jack source code => tokens."""
         with open(filename) as f:
-            for i in f.readlines():
-                data = i.split()
+            for line in f.readlines():
+                data = line.split()
+                # Skip whitespace
                 if len(data) == 0:
                     pass
+                # Skip all comments
                 elif data[0] == '//':
                     pass
                 elif data[0] == '/**' or data[0] == '*' or data[0] == '*/':
                     pass
+                # Generate tokens
                 else:
                     data = ' '.join(data)
+                    # Skip in-line comments
                     data = data.split('//')[0]
-                    data = self.process_sentence(data)
-                    self.tokens += data
+                    result = self.parse_one_line(data)
+                    self.tokens += result
     
-    def process_sentence(self, string):
-        """"""
+    def parse_one_line(self, string):
+        """One line of code => tokens."""
         result = []
         i = 0
         n = len(string)
@@ -121,9 +125,9 @@ class JackTokenizer():
 
     def _replace(self, word):
         """"""
-        for i in self.replace_words:
-            if i in word:
-                word = word.replace(i, self.encoding[i])
+        for i in word:
+            if i in self.replace_symbols:
+                word = word.replace(i, self.replace_lookup[i])
         return word
 
     def hash_more_tokens(self):
