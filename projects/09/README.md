@@ -8,10 +8,6 @@ The assembly and VM languages presented so far in this book are low-level, meani
 
 ### Example 1: Hello World
 
-Jack comes with a **standard class library**. This software library, also known as the **Jack OS**, extends the basic language with various abstractions and services such as mathematical functions, string processing, memory management, graphics, and input/output functions.
-
-Consider the following Jack code snippet:
-
 ```
 /** Prints "Hello World". File name: Main.jack */
 class Main {
@@ -23,13 +19,7 @@ class Main {
 }
 ```
 
-In this example, `Output.printString()` and `Output.println()` come from the Jack OS.
-
 ### Example 2: Procedural Programming and Array Handling
-
-Jack 
-
-Consider the following Jack code snippet:
 
 ```
 /** Inputs a sequence of integers, and computes their average. */
@@ -57,7 +47,31 @@ class Main {
 
 ### Example 3: Abstract Data Types
 
+#### Using classes
 
+```
+/** Represents the Fraction type and related operations (class skeleton) */
+class Fraction {
+
+    /** Constructs a (reduced) fraction from x and y */
+    constructor Fraction new(int x, int y)
+
+    /** Returns the numerator of this fraction */
+    method int getNumberator()
+
+    /** Returns the denominator of this fraction */
+    method int getDenominator()
+
+    
+}
+```
+
+#### Implementing classes
+
+```
+/** Represents the Fraction type and related operations. */
+
+```
 
 
 ### Example 4: Linked List Implementation
