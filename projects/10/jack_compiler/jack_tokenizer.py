@@ -81,7 +81,7 @@ class JackTokenizer():
 
     def code_to_tokens(self):
         """Jack source code => tokens."""
-        with open(self.filename) as f:
+        with open(self.filename + '.jack') as f:
             for line in f.readlines():
                 data = line.split()
                 # Skip whitespace

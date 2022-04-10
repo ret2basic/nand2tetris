@@ -22,14 +22,14 @@ class JackAnalyzer:
 
         # If the input is a single file
         if filename_components[-1] == 'jack':
-            self.filename = path
+            self.filename = ''.join(filename_components[:-1])
             self.analyze_one_file()
         # If the input is a directory
         else:
             files = os.listdir(path)
             for f in files:
                 if f.split(".")[-1] == 'jack':
-                    self.filename = path + '/' + f
+                    self.filename = path + '/' + ''.join(f.split(".")[:-1])
                     self.analyze_one_file()
     
 if __name__ == '__main__':

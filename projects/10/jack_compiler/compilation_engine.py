@@ -6,11 +6,12 @@ class CompilationEngine():
         
         The next routine called (by the `JackAnalyzer` module) must be `compile_class`.
         """
+        self.filename = filename
         self.tokenizer = JackTokenizer(filename)
         if flag == 1:
-            self.output = self.tokenizer.filename + "X.xml"
+            self.output = self.filename + "X.xml"
         else:
-            self.output = self.tokenizer.filename + ".xml"
+            self.output = self.filename + ".xml"
         self.file = open(self.output, "w+")
         
     def compile_class(self):
