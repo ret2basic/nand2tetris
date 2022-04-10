@@ -21,7 +21,7 @@ class JackAnalyzer:
         filename_components = file.split('.')
 
         # If the input is a single file
-        if len(filename_components) == 2:
+        if filename_components[-1] == 'jack':
             self.filename = path
             self.analyze_one_file()
         # If the input is a directory
@@ -39,3 +39,5 @@ if __name__ == '__main__':
     
     jack_analyzer = JackAnalyzer()
     jack_analyzer.analyze()
+
+    print("Success")

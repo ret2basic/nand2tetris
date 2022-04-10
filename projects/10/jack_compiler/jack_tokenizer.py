@@ -1,6 +1,8 @@
 class JackTokenizer():
     def __init__(self, filename):
-        self.keyword = {
+        self.filename = filename
+
+        self.keywords = {
             'class',
             'constructor',
             'function',
@@ -69,13 +71,17 @@ class JackTokenizer():
         self.sep = '[' + ''.join(self.symbols) + ']'
         self.counter = 0
         filename_components = filename.split('/')
-        self.filename = '/'.join(filename_components[:-1]) + '/' + filename_components[-1].split('.')[0]
-        self.code_to_tokens(self.filename)
+ 
+        self.code_to_tokens()
         self.max_length = len(self.tokens)
 
-    def code_to_tokens(self, filename):
+    def next_token(self):
+        if self.counter < self.max_length:
+            return self.tokens[self.counter]
+
+    def code_to_tokens(self):
         """Jack source code => tokens."""
-        with open(filename) as f:
+        with open(self.filename) as f:
             for line in f.readlines():
                 data = line.split()
                 # Skip whitespace
@@ -130,14 +136,14 @@ class JackTokenizer():
                 word = word.replace(i, self.replace_lookup[i])
         return word
 
-    def hash_more_tokens(self):
+    def has_more_tokens(self):
         """Are there more tokens in the input?"""
         return self.counter < self.max_length
 
     def advance(self):
         """Gets the next token from the input, and makes it the current token.
         
-        This method should be called only if `hash_more_tokens` is True.
+        This method should be called only if `has_more_tokens` is True.
         Initially there is no current token.
         """
         if self.has_more_tokens():
@@ -162,7 +168,7 @@ class JackTokenizer():
         
         This method should be called only if `token_type` is `KEYWORD`.
         """
-        if self.token_type(self.token) == 'KEYWORD':
+        if self.token_type() == 'KEYWORD':
             return self.token
         else:
             print('Error in JackTokenizer.key_word().')
@@ -173,7 +179,7 @@ class JackTokenizer():
         
         Should be called only if `token_type` is `SYMBOL`.
         """
-        if self.token_type(self.token) == 'SYMBOL':   
+        if self.token_type() == 'SYMBOL':   
             self.token = self._replace(self.token)
             return self.token
         else:
@@ -185,7 +191,7 @@ class JackTokenizer():
         
         Should be called only if `token_type` is `IDENTIFIER`.
         """
-        if self.token_type(self.token) == 'IDENTIFIER':
+        if self.token_type() == 'IDENTIFIER':
             return self.token
         else:
             print('Error in JackTokenizer.identifier().')
@@ -196,7 +202,7 @@ class JackTokenizer():
         
         Should be called only if `token_type` is `INT_CONST`.
         """
-        if self.token_type(self.token) == 'INT_CONST':
+        if self.token_type() == 'INT_CONST':
             return int(self.token)
         else:
             print('Error in JackTokenizer.int_val().')
@@ -207,7 +213,7 @@ class JackTokenizer():
         
         Should be called only if `token_type` is `STRING_CONST`.
         """
-        if self.token_type(self.token) == 'STRING_CONST':
+        if self.token_type() == 'STRING_CONST':
             self.token = self._replace(self.token[1:-1])
             return self.token
         else:
