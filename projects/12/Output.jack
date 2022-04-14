@@ -317,5 +317,4 @@ class Output {
         do Output.moveCursor(screenRow, screenCol);
         return;
     }
-    }
 }

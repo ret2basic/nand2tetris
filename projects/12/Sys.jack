@@ -32,17 +32,21 @@ class Sys {
     /** Waits approximately duration milliseconds and returns.  */
     function void wait(int duration) {
         var int i;
+
         while (i < CYCLES_PER_MS * duration) {
             let i = i + 1;
         }
+
+        return;
     }
 
     /** Displays the given error code in the form "ERR<errorCode>",
      *  and halts the program's execution. */
     function void error(int errorCode) {
-		do Output.printString("ERR");
-		do Output.printInt(errorCode);
-		do Sys.halt();
-		return;
+      do Output.printString("ERR");
+      do Output.printInt(errorCode);
+      do Sys.halt();
+      
+      return;
     }
 }
