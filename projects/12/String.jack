@@ -147,11 +147,11 @@ class String {
         return 34;
     }
 
-    function int char2decimal(char char) {
-        return char - 48;
+    function int char2decimal(char c) {
+        return c - 48;
     }
 
-    function char decimal2char(int decimal) {
-        return decimal + 48;
+    function char decimal2char(int d) {
+        return d + 48;
     }
 }
