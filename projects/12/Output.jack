@@ -17,16 +17,22 @@
 class Output {
 
     // Character map for displaying characters
-    static Array charMaps; 
+    static Array charMaps, screenAddress;
+    static int screenRow, screenCol; 
 
     /** Initializes the screen, and locates the cursor at the screen's top-left. */
     function void init() {
+        // Screen address: from 16384 to 24575
+        let screenAddress = 16384;
+
+        do Output.initMap();
+        do Output.moveCursor(0, 0);
+
+        return;
     }
 
     // Initializes the character map array
     function void initMap() {
-        var int i;
-    
         let charMaps = Array.new(127);
         
         // Black square, used for displaying non-printable characters.

@@ -8,11 +8,13 @@
  */
 class Keyboard {
 
+    static int KEYBOARD_ADDRESS, LINE_BUFFER_LENGTH;
+
     /** Initializes the keyboard. */
     function void init() {
-		let KEYBOARD_ADDRESS = 24576;
-		let LINE_BUFFER_LENGTH = 64;
-		return;
+      let KEYBOARD_ADDRESS = 24576;
+      
+      return;
     } 
 
     /**
@@ -36,7 +38,7 @@ class Keyboard {
      * F1 - F12 = 141 - 152
      */
     function char keyPressed() {
-		return Memory.peek(KEYBOARD_ADDRESS);
+		    return Memory.peek(KEYBOARD_ADDRESS);
     }
 
     /**								
@@ -45,12 +47,28 @@ class Keyboard {
      * of the pressed key.
      */
     function char readChar() {
-		var char key;
-		while (key = 0) {
-			let key = Keyboard.keyPressed();
-		}
-		while (~(Keyboard.keyPressed() = 0)) {}
-		return key;
+        var char c, temp;
+
+        do Output.printChar(0);
+
+        while (true) {
+            let temp = Keyboard.keyPressed();
+
+            if (temp > 0) {
+                let c = temp;
+                while (true) {
+                    let temp = Keyboard.keyPressed();
+                    if (temp = 0) {
+                        do Output.backSpace();
+                        if (~(c = 129) & (~(c = 128))) {
+                            do Output.printChar(c);
+                        }
+                        return c;
+                    }
+                }
+            }
+        }
+        return 0;
     }
 
     /**								
@@ -59,37 +77,29 @@ class Keyboard {
      * and returns its value. Also handles user backspaces.
      */
     function String readLine(String message) {
-		return Keyboard._readLine(message, false);
+        var String s;
+        var char c;
+
+        do Output.printString(message);
+        let s = String.new(80);
+
+        while (true) {
+            let c = Keyboard.readChar();
+
+            if (c = 128) {
+                do Output.println();
+                return s;
+            }
+
+            if (c = 129) {
+                do s.eraseLastChar();
+                do Output.backSpace();
+            } else {
+                let s = s.appendChar(c);
+            }
+        }
+        return 0;
     }
-    
-	function String _readLine(String message, boolean onlyDigits) {
-		var char key;
-		var String ret;
-		let ret = String.new(LINE_BUFFER_LENGTH);
-		do Output.printString(message);
-		let key = Keyboard.readChar();
-		while ((~(key = 128)) & (~(ret.length() > LINE_BUFFER_LENGTH))) { // intro
-			if(key = 129) { // backspace
-				do Output.backSpace();
-				do Output.printChar(32);
-				do Output.backSpace();
-				do ret.eraseLastChar();
-			} else {
-				if((~onlyDigits) | ((key > 47) & (key < 58))){
-					do ret.appendChar(key);
-					do Output.printChar(key);
-				} else {
-					if((ret.length() = 0) & (key = 45)){
-						do ret.appendChar(key);
-						do Output.printChar(key);
-					}
-				}
-			}
-			let key = Keyboard.readChar();
-		}
-		do Output.println();
-		return ret;
-    }   
 
     /**								
      * Displays the message on the screen, reads from the keyboard the entered
@@ -98,11 +108,9 @@ class Keyboard {
      * entered text is detected). Also handles user backspaces. 
      */
     function int readInt(String message) {
-		var String str;
-		let str = Keyboard._readLine(message, true);
-		while(str.length() = 0){
-			let str = Keyboard._readLine(message, true);
-		}
-		return str.intValue();
+        var String s;
+
+        let s = Keyboard.readLine(message);
+        return s.intValue();
     }
 }

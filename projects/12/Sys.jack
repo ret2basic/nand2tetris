@@ -7,18 +7,20 @@
  * A library that supports various program execution services.
  */
 class Sys {
+      static int CYCLES_PER_MS;
 
     /** Performs all the initializations required by the OS. */
-    function void init() {
-		let CYCLES_PER_MS = 20000 + 15000;
-		do Memory.init();
-		do Math.init();
-		do Keyboard.init();
-		do Screen.init();
-		do Output.init();
-		do Main.main();
-		do Sys.halt();
-		return;
+      function void init() {
+        let CYCLES_PER_MS = 20000 + 15000;
+        do Memory.init();
+        do Math.init();
+        do Screen.init();
+        do Output.init();
+        do Keyboard.init();
+        do Main.main();
+        do Sys.halt();
+
+        return;
     }
 
     /** Halts the program execution. */

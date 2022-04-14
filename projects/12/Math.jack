@@ -9,17 +9,29 @@
  */
 class Math {
 
+	static Array bitArray;
+
     /** Initializes the library. */
     function void init() {
-	    var int i;
-		let EYE = Array.new(16);
-		let EYE[0] = 1;
-		let i = 1;
-		while(i < 16){
-		    let EYE[i] = EYE[i-1] +  EYE[i-1];
-			let i = i + 1;
-		}
-		return;
+        let bitArray = Array.new(16);
+        let bitArray[0] = 1;
+        let bitArray[1] = 2; // 2**1
+        let bitArray[2] = 4; // 2**2
+        let bitArray[3] = 8; // 2**3
+        let bitArray[4] = 16; // 2**4
+        let bitArray[5] = 32; // 2**5
+        let bitArray[6] = 64; // 2**6
+        let bitArray[7] = 128; // 2**7
+        let bitArray[8] = 256; // 2**8
+        let bitArray[9] = 512; // 2**9
+        let bitArray[10] = 1024; // 2**10
+        let bitArray[11] = 2048; // 2**11
+        let bitArray[12] = 4096; // 2**12
+        let bitArray[13] = 8192; // 2**13
+        let bitArray[14] = 16384; // 2**14
+        let bitArray[15] = 32768; // 2**15
+
+        return;
     }
 
     /** Returns the absolute value of x. */
@@ -38,21 +50,19 @@ class Math {
      *  the Jack expressions x*y and multiply(x,y) return the same value.
      */
     function int multiply(int x, int y) {
-		var int i, ret;
-		let i = 0;
-		let ret = 0;
-		while(i < 16){
-		    if(Math.getBit(y, i) = 1){
-				let ret = ret + x;
-			}
-			let x = x + x;
-			let i = i + 1;
-		}
-		return ret;
-    }
+        var int sum, index, mask;
 
-	function int getBit(int x, int i){
-		return -~((x & EYE[i]) = 0);
+        let mask = 1;
+        while (index < 16) {
+            if (y & mask) {
+                let sum = sum + x;
+            }
+            let x = x + x;
+            let index = index + 1;
+            let mask = mask + mask;
+        }
+
+        return sum;
 	}
 
     /** Returns the integer part of x/y.
@@ -61,70 +71,68 @@ class Math {
      *  the Jack expressions x/y and divide(x,y) return the same value.
      */
     function int divide(int x, int y) {
-		var int q, sign;
-		let sign = 1;
+        var int q;
 
-		if(y = 0){
-			do Sys.error(3);
-		} 
-		if(x = 0){
-			return 0;
-		}
-		if(y < 0){
-			if(x > 0){
-				return -Math.divide(x, -y);
-			} else {
-				return Math.divide(-x, -y);
-			}
-		} else {
-			if(x < 0){
-				return -Math.divide(-x, y);
-			}
-		}
-		if(x < y){
-			return 0;
-		}
-		if((2 * y) < 0){
-			return 0;
-		}
-		let q = Math.divide(x, 2 * y);
-		if((x - (2 * q * y)) < y){
-			return 2 * q;
-		} else {
-			return (2 * q) + 1;
-		}
+        if (y = 0) {
+            do Sys.error(3);
+            return 0;
+        }
+
+        let q = Math._div(Math.abs(x), Math.abs(y));
+
+        if ((x < 0) = (y < 0)) { 
+            return q;
+        } else {
+            return -q;
+        }
+    }
+
+    function int _div(int x, int y) {
+        var int q, result, sum;
+
+        if (y > x) {
+            return 0;
+        }
+
+        if (y < 16384) {
+            let q = Math._div(x, y + y);
+        } else {
+            let q = 0;
+        }
+
+        let sum = q + q;
+
+        if ((x - (sum * y)) < y) {
+            let result = sum;
+        } else {
+            let result = sum + 1;
+        }
+
+        return result;
     }
 
     /** Returns the integer part of the square root of x. */
     function int sqrt(int x) {
-		var int start, end, mid, value;
-		if(x < 0){
-			do Sys.error(4);
-		}
-		if(x = 0){
-			return 0;
-		}
-		let start = 0;
-		let end = x;
-		while(start < end){
-			if(start = (end - 1)){
-				return start;
-			}
-			let mid = start + ((end - start)/2);
-			let value = mid * mid;
-			
-			if(value = x){
-				return mid;
-			} else {
-				if((value > x) | value < 0){
-					let end = mid;
-				} else {
-					let start = mid;
-				}
-			}
-		}
-		return mid;
-	}
+        var int y, j, temp, tempSquare;
+
+        if (x < 0) {
+            do Sys.error(4);
+            return 0;
+        }
+
+        let y = 0;
+        let j = 7;
+
+        while (~(j < 0)) {
+            let temp = y + bitArray[j];
+            let tempSquare = temp * temp;
+
+            if (~(tempSquare > x) & (tempSquare > 0)) {
+                let y = temp;
+            }
+            let j = j - 1;
+        }
+        return y;
     }
 
     /** Returns the greater number. */

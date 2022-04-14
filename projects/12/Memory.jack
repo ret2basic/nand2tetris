@@ -9,15 +9,15 @@
  * consists of 32,768 words, each holding a 16-bit binary number.
  */ 
 class Memory {
-    static Array memoryBaseAddress, freeList;
+    static Array RAM, freeList;
 
     /** Initializes the class. */
     function void init() {
         var int len;
         // heap address 2048--16383
 
-        let memoryBaseAddress = 0;
-        let len = 16383 - 2048 + 1;
+        let RAM = 0;
+        let len = 16384 - 2048;
         let freeList = 2048;
 
         // 0 next segment
@@ -30,12 +30,12 @@ class Memory {
 
     /** Returns the RAM value at the given address. */
     function int peek(int address) {
-        return memoryBaseAddress[address];
+        return RAM[address];
     }
 
     /** Sets the RAM value at the given address to the given value. */
     function void poke(int address, int value) {
-        let memoryBaseAddress[address] = value;
+        let RAM[address] = value;
         return;
     }
 

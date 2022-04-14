@@ -13,7 +13,7 @@ class Screen {
 
     /** Initializes the Screen. */
     function void init() {
-        // Screen: from address 16384 to address 24575
+        // Screen address: from 16384 to 24575
         let screenAddress = 16384;
         let screenColor = true;
 
