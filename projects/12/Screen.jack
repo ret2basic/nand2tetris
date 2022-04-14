@@ -10,6 +10,8 @@
  * the screen is indexed (0,0).
  */
 class Screen {
+    static boolean screenColor;
+    static Array screenAddress, bitArray;
 
     /** Initializes the Screen. */
     function void init() {
@@ -33,7 +35,7 @@ class Screen {
         let bitArray[12] = 4096; // 2**12
         let bitArray[13] = 8192; // 2**13
         let bitArray[14] = 16384; // 2**14
-        let bitArray[15] = 32768; // 2**15
+        let bitArray[15] = 16384 + 16384; // 2**15
         let bitArray[16] = 0;
 
         return;

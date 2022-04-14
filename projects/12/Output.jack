@@ -271,7 +271,7 @@ class Output {
 
     /** Displays the given integer starting at the cursor location,
      *  and advances the cursor appropriately. */
-    function void printInt(int i) {
+    function void printInt(int n) {
         var String s;
         var int len, i;
 
