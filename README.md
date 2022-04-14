@@ -23,17 +23,17 @@
 
 ## Part I: Hardware
 
-Part I covers project 1 to 6. In this part, we are going to implement the hardware architecture for our Hack computer. In particular, we are going to build:
+Part I covers Project 1 to 6. In this part, we are going to implement the hardware architecture for our Hack computer. In particular, we are going to build:
 
-1. **Logical gates:** project 1
-2. **ALU and memory devices:** project 2 and 3
-3. **Hack machine language:** project 4
-4. **CPU and RAM:** project 5
-5. **Hack assembler:** project 6
+1. **Logical gates:** Project 1
+2. **ALU and memory devices:** Project 2 and 3
+3. **Hack machine language:** Project 4
+4. **CPU and RAM:** Project 5
+5. **Hack assembler:** Project 6
 
 ## Part II: Software
 
-Part II covers project 7 to 12. In this part, we are going to implement **Jack**, a *simple*, *Java-like*, *object-based* programming language. As with programming languages like Java and C#, the Jack compiler will be *two-tiered*:
+Part II covers Project 7 to 12. In this part, we are going to implement **Jack**, a *simple*, *Java-like*, *object-based* programming language. As with programming languages like Java and C#, the Jack compiler will be *two-tiered*:
 
 1. The **Hack compiler** will generate interim **bytecode**, designed to run on an abstraction **virtual machine (VM)**.
 2. The bytecode will then be compiled further by a separate **VM translator** into the **Hack machine language**.
@@ -59,7 +59,7 @@ class Main {
 
 In Part II, we are going to build:
 
-1. **VM translator:** project 7-8
-2. **BreakOut game written in Jack:** project 9
-3. **Jack compiler:** project 10-11
-4. **Operating system:** project 12
+1. **VM translator:** Project 7-8
+2. **BreakOut game written in Jack:** Project 9
+3. **Jack compiler:** Project 10-11
+4. **Operating system:** Project 12

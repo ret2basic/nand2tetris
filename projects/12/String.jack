@@ -11,54 +11,133 @@
  * string-oriented operations.
  */
 class String {
+    field int len;
+    field int maxLen;
+    field Array chars;
 
     /** constructs a new empty string with a maximum length of maxLength
      *  and initial length of 0. */
     constructor String new(int maxLength) {
+        if (maxLength = 0) {
+            let maxLength = 1;
+        }
+
+        let len = 0;
+        let maxLen = maxLength;
+        let chars = Array.new(maxLength);
+
+        return this;
     }
 
     /** Disposes this string. */
     method void dispose() {
+        do chars.dispose();
+        return;
     }
 
     /** Returns the current length of this string. */
     method int length() {
+        return len;
     }
 
     /** Returns the character at the j-th location of this string. */
     method char charAt(int j) {
+        return chars[j]
     }
 
     /** Sets the character at the j-th location of this string to c. */
     method void setCharAt(int j, char c) {
+        let chars[j] = c;
+        return;
     }
 
     /** Appends c to this string's end and returns this string. */
     method String appendChar(char c) {
+        if (maxLen > len) {
+            let chars[len] = c;
+            let len = len + 1;
+        }
+        return this;
     }
 
     /** Erases the last character from this string. */
     method void eraseLastChar() {
+        if (len > 0) {
+            let len = len - 1;
+        }
+        return;
     }
 
     /** Returns the integer value of this string, 
      *  until a non-digit character is detected. */
     method int intValue() {
+        var int v, index, d, temp;
+        var boolean isNeg;
+        let v = 0;
+        let index = 0;
+
+        if (chars[index] = 45) {
+            let index = index + 1;
+            let isNeg = true;
+        } else {
+            let isNeg = false;
+        }
+        while (index < len) {
+            let temp = chars[index];
+            if ((temp < 48) | (temp > 57)) {
+                if (isNeg) {
+                    return -v;
+                } else {
+                    return v;
+                }
+            }
+            let d = String.char2decimal(temp);
+            let index = index + 1;
+            let v = v * 10 + d;
+        }
+
+        if (isNeg) {
+            return -v;
+        } else {
+            return v;
+        }
     }
 
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int val) {
+        var int nextN;
+
+        if (n < 10) {
+            do appendChar(String.decimal2char(n));
+        } else {
+            let nextN = n / 10;
+            do setInt2(nextN);
+            do appendChar(String.decimal2char(n - (nextN * 10)));
+        }
+
+        return;
     }
 
     /** Returns the new line character. */
     function char newLine() {
+        return 128;
     }
 
     /** Returns the backspace character. */
     function char backSpace() {
+        return 129;
     }
 
     /** Returns the double quote (") character. */
     function char doubleQuote() {
+        return 34;
+    }
+
+    function int char2decimal(char char) {
+        return char - 48;
+    }
+
+    function char decimal2char(int decimal) {
+        return decimal + 48;
     }
 }
