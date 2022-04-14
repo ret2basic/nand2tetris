@@ -57,6 +57,7 @@ class String {
             let chars[len] = c;
             let len = len + 1;
         }
+        
         return this;
     }
 
@@ -65,6 +66,7 @@ class String {
         if (len > 0) {
             let len = len - 1;
         }
+
         return;
     }
 
@@ -79,9 +81,11 @@ class String {
         if (chars[index] = 45) {
             let index = index + 1;
             let isNeg = true;
-        } else {
+        }
+        else {
             let isNeg = false;
         }
+
         while (index < len) {
             let temp = chars[index];
             if ((temp < 48) | (temp > 57)) {
@@ -91,14 +95,15 @@ class String {
                     return v;
                 }
             }
-            let d = String.char2decimal(temp);
+            let d = String.c2d(temp);
             let index = index + 1;
             let v = v * 10 + d;
         }
 
         if (isNeg) {
             return -v;
-        } else {
+        }
+        else {
             return v;
         }
     }
@@ -108,11 +113,12 @@ class String {
         var int nextN;
 
         if (n < 10) {
-            do appendChar(String.decimal2char(n));
-        } else {
+            do appendChar(String.d2c(n));
+        }
+        else {
             let nextN = n / 10;
             do setInt2(nextN);
-            do appendChar(String.decimal2char(n - (nextN * 10)));
+            do appendChar(String.d2c(n - (nextN * 10)));
         }
 
         return;
@@ -147,11 +153,11 @@ class String {
         return 34;
     }
 
-    function int char2decimal(char c) {
+    function int c2d(char c) {
         return c - 48;
     }
 
-    function char decimal2char(int d) {
+    function char d2c(int d) {
         return d + 48;
     }
 }
