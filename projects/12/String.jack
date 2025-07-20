@@ -111,7 +111,12 @@ class String {
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int n) {
         var int nextN;
+        let len = 0;  // Reset string length
 
+        if (n < 0) {
+            do appendChar(45);  // Append '-'
+            let n = -n;
+        }
         if (n < 10) {
             do appendChar(String.d2c(n));
         }

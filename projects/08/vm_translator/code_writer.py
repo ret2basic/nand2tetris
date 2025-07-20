@@ -34,7 +34,7 @@ class CodeWriter():
         elif command == "sub":
             self.write_sub()
         elif command == "and":
-            self.write_add()
+            self.write_and()
         elif command == "or":
             self.write_or()
         elif command == "neg":
@@ -140,77 +140,62 @@ class CodeWriter():
     def write_eq(self):
         self.file.writelines([
             "@SP\n",
-            "M=M-1\n",
-            "D=M\n",
-            "@SP\n",
-            "A=M\n",
-            "D=M\n",
-            "@SP\n",
-            "A=M-1\n",
-            "D=M-D\n",
-            "@SP\n",
-            "A=M-1\n",
-            "M=0\n",
+            "AM=M-1\n",  # SP--, A=SP
+            "D=M\n",     # D = stack[SP] (second operand)
+            "A=A-1\n",   # A = SP-1
+            "D=M-D\n",   # D = stack[SP-1] - stack[SP] (first - second)
+            "M=0\n",     # Default to false
             "@SET" + str(self.count) + "\n",
-            "D;JEQ\n",
+            "D;JEQ\n",   # If D==0, jump to set true
             "@NEXT" + str(self.count) + "\n",
             "0;JMP\n",
             "(SET" + str(self.count) + ")\n",
             "@SP\n",
             "A=M-1\n",
-            "M=-1\n",
+            "M=-1\n",    # Set true
             "(NEXT" + str(self.count) + ")\n",
         ])
+        self.count += 1
 
     def write_gt(self):
         self.file.writelines([
             "@SP\n",
-            "M=M-1\n",
-            "D=M\n",
-            "@SP\n",
-            "A=M\n",
-            "D=M\n",
-            "@SP\n",
-            "A=M-1\n",
-            "D=M-D\n",
-            "@SP\n",
-            "A=M-1\n",
-            "M=0\n",
+            "AM=M-1\n",  # SP--, A=SP
+            "D=M\n",     # D = stack[SP] (second operand)
+            "A=A-1\n",   # A = SP-1
+            "D=M-D\n",   # D = stack[SP-1] - stack[SP] (first - second)
+            "M=0\n",     # Default to false
             "@SET" + str(self.count) + "\n",
-            "D;JGT\n",
+            "D;JGT\n",   # If D>0, jump to set true
             "@NEXT" + str(self.count) + "\n",
             "0;JMP\n",
             "(SET" + str(self.count) + ")\n",
             "@SP\n",
             "A=M-1\n",
-            "M=-1\n",
+            "M=-1\n",    # Set true
             "(NEXT" + str(self.count) + ")\n",
         ])
+        self.count += 1
 
     def write_lt(self):
         self.file.writelines([
             "@SP\n",
-            "M=M-1\n",
-            "D=M\n",
-            "@SP\n",
-            "A=M\n",
-            "D=M\n",
-            "@SP\n",
-            "A=M-1\n",
-            "D=M-D\n",
-            "@SP\n",
-            "A=M-1\n",
-            "M=0\n",
+            "AM=M-1\n",  # SP--, A=SP
+            "D=M\n",     # D = stack[SP] (second operand)
+            "A=A-1\n",   # A = SP-1
+            "D=M-D\n",   # D = stack[SP-1] - stack[SP] (first - second)
+            "M=0\n",     # Default to false
             "@SET" + str(self.count) + "\n",
-            "D;JLT\n",
+            "D;JLT\n",   # If D<0, jump to set true
             "@NEXT" + str(self.count) + "\n",
             "0;JMP\n",
             "(SET" + str(self.count) + ")\n",
             "@SP\n",
             "A=M-1\n",
-            "M=-1\n",
+            "M=-1\n",    # Set true
             "(NEXT" + str(self.count) + ")\n",
         ])
+        self.count += 1
 
     def write_push(self, command, segment, index):
 

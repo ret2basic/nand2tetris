@@ -238,9 +238,9 @@ class JackTokenizer():
                 elif current_token_type == "SYMBOL":
                     current_line = '<symbol> ' + self.symbol() + ' </symbol>'
                 elif current_token_type == "INT_CONST":
-                    current_line = '<integerConstant> ' + str(self.intVal()) + ' </integerConstant>'
+                    current_line = '<integerConstant> ' + str(self.int_val()) + ' </integerConstant>'
                 elif current_token_type == 'STRING_CONST':
-                    current_line = '<stringConstant> ' + self.stringVal() + ' </stringConstant>'
+                    current_line = '<stringConstant> ' + self.string_val() + ' </stringConstant>'
                 elif current_token_type == 'IDENTIFIER':
                     current_line = '<identifier> ' + self.identifier() + ' </identifier>'
                 else:

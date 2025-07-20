@@ -44,7 +44,7 @@ M=0 // sum = 0
 	@R1 // A = 1
 	D=D-M // D = D - RAM[1]
 	@STOP // select label SsTOP
-	D;JGT	// if D > 0, jump to label STOP
+	D;JGE	// if D >= 0, jump to label STOP
 
 	@sum // select variable "sum"
 	D=M // D = sum

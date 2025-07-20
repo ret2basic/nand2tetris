@@ -11,54 +11,54 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-@i // select variable "i"
-M=1 // i = 1
-@8192 // A = 8192
-D=A // D = 8192
-@n // select variable "n"
-M=D	// n = 8192
-@color // select variable "color"
-M=0 // color = 0
-
-(LOOP1)
-	@SCREEN // A = SCREEN
-	D=A // D = SCREEN
-	@addr // select variable "addr"
-	M=D // addr = 16384
-	@i // select variable "i"
-	M=1	// i = 1
-	@color // select variable "color"
+(LOOP)
+	@KBD // Check keyboard input
+	D=M
+	@WHITE // If no key pressed, set white
+	D;JEQ
+	
+	// Key is pressed, set black
+	@color
+	M=-1
+	@FILL
+	0;JMP
+	
+(WHITE)
+	@color
 	M=0
-
-	@KBD // A = KBD
-	D=M  // D = KBD
-	@BLACKEN // select label "BLACKEN"
-	D;JGT // If D > 0, jump to "BLACKEN"
 	
-	(LOOP2)
-		@i
-		D=M
-		@n
-		D=D-M	
-		@LOOP1
-		D;JGT
-		
-		@color
-		D=M
-		
-		@addr
-		A=M
-		M=D
-		
-		@i
-		M=M+1
-		@addr
-		M=M+1
-		@LOOP2
-		0;JMP
+(FILL)
+	@8192 // Screen has 8192 words (512*256/16)
+	D=A
+	@n
+	M=D
 	
-(BLACKEN)
-	@color // select variable "color"
-	M=-1 // color = -1
-	@LOOP2 // select label "LOOP2"
+	@SCREEN
+	D=A
+	@addr
+	M=D  // addr = screen base address
+	
+	@i
+	M=0  // i = 0
+	
+(FILLLOOP)
+	@i
+	D=M
+	@n
+	D=D-M
+	@LOOP  // Done filling, go back to main loop
+	D;JGE
+	
+	@color
+	D=M
+	@addr
+	A=M
+	M=D  // Set pixel
+	
+	@addr
+	M=M+1  // Next screen address
+	@i
+	M=M+1  // i++
+	
+	@FILLLOOP
 	0;JMP
